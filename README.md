@@ -94,5 +94,3 @@ uv run python -m app.scripts.benchmark --rounds 2
 - `pytest`：运行单元测试与安全校验测试。
 - `evaluate`：输出 Text-to-SQL 成功率、Schema 召回率和端到端耗时等指标。
 - `benchmark`：对比冷请求与缓存命中后的响应延迟。
-
-> 请勿提交真实的 `conf/app_config.yaml`、API Key 或数据库密码。仓库仅保留 `app_config.example.yaml` 配置模板。

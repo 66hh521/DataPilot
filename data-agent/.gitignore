@@ -1,0 +1,9 @@
+.venv/
+.env
+conf/app_config.yaml
+logs/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+evals/report*.json

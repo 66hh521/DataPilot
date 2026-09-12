@@ -1,0 +1,62 @@
+metrics:
+  - name: GMV
+    display_name: 商品交易总额
+    description: 所有订单成交金额之和。
+    expression: SUM(fact_order.order_amount)
+    base_table: fact_order
+    required_columns: [fact_order.order_amount]
+    aliases: [成交总额, 订单总额, 销售额, 收入]
+    dimensions:
+      - dim_region.province
+      - dim_region.region_name
+      - dim_product.category
+      - dim_product.brand
+      - dim_customer.member_level
+      - dim_date.year
+      - dim_date.quarter
+      - dim_date.month
+
+  - name: AOV
+    display_name: 平均客单价
+    description: 成交金额除以去重订单数。
+    expression: SUM(fact_order.order_amount) / NULLIF(COUNT(DISTINCT fact_order.order_id), 0)
+    base_table: fact_order
+    required_columns: [fact_order.order_amount, fact_order.order_id]
+    aliases: [平均客单价, 平均订单金额, 客单价]
+    dimensions:
+      - dim_region.province
+      - dim_product.category
+      - dim_customer.member_level
+      - dim_date.month
+
+  - name: ORDER_COUNT
+    display_name: 订单数
+    description: 去重后的订单数量。
+    expression: COUNT(DISTINCT fact_order.order_id)
+    base_table: fact_order
+    required_columns: [fact_order.order_id]
+    aliases: [订单量, 订单数量, 下单数]
+    dimensions: [dim_region.province, dim_product.category, dim_date.month]
+
+  - name: SALES_QUANTITY
+    display_name: 商品销量
+    description: 所有订单商品购买件数之和。
+    expression: SUM(fact_order.order_quantity)
+    base_table: fact_order
+    required_columns: [fact_order.order_quantity]
+    aliases: [销量, 销售数量, 购买件数]
+    dimensions: [dim_region.province, dim_product.category, dim_date.month]
+
+joins:
+  - left: fact_order.region_id
+    right: dim_region.region_id
+    join_type: INNER
+  - left: fact_order.customer_id
+    right: dim_customer.customer_id
+    join_type: INNER
+  - left: fact_order.product_id
+    right: dim_product.product_id
+    join_type: INNER
+  - left: fact_order.date_id
+    right: dim_date.date_id
+    join_type: INNER

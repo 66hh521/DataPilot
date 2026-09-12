@@ -1,0 +1,76 @@
+logging:
+  file:
+    enable: true
+    level: INFO
+    path: logs/app.log
+    rotation: 10 MB
+    retention: 7 days
+  console:
+    enable: true
+    level: INFO
+
+db_meta:
+  host: localhost
+  port: 3306
+  user: atguigu
+  password: replace-me
+  database: meta
+
+db_dw:
+  host: localhost
+  port: 3306
+  user: data_agent_ro
+  password: replace-me
+  database: dw
+
+qdrant:
+  host: localhost
+  port: 16333
+  embedding_size: 1024
+
+embedding:
+  host: localhost
+  port: 8081
+  model: BAAI/bge-large-zh-v1.5
+
+es:
+  host: localhost
+  port: 9200
+  index_name: data_agent
+
+llm:
+  model_name: deepseek-v4-pro
+  # 留空时复用 model_name；生产环境可给检索/筛选节点配置更快、更便宜的模型。
+  fast_model_name: ""
+  # SQL生成和纠错使用的推理模型，留空时复用 model_name。
+  reasoning_model_name: ""
+  api_key: replace-me
+  base_url: https://api.deepseek.com
+  timeout_seconds: 90
+  max_retries: 2
+
+query:
+  max_rows: 500
+  timeout_seconds: 15
+  workflow_timeout_seconds: 180
+  max_corrections: 3
+
+retrieval:
+  dense_limit: 8
+  lexical_limit: 8
+  fusion_limit: 10
+  rrf_k: 60
+  # local 默认不调用LLM扩展关键词；可改为 llm 进行对照实验。
+  keyword_expansion_mode: local
+  # deterministic 默认使用召回分数筛选Schema；可改为 llm。
+  selection_mode: deterministic
+  selection_column_limit: 8
+  selection_metric_limit: 2
+
+cache:
+  enabled: true
+  ttl_seconds: 900
+  max_entries: 512
+
+observability:
+  recent_requests: 200

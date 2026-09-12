@@ -1,0 +1,23 @@
+# Python
+data-agent/.venv/
+data-agent/__pycache__/
+data-agent/**/*.py[cod]
+data-agent/.pytest_cache/
+data-agent/logs/
+data-agent/.env
+data-agent/conf/app_config.yaml
+data-agent/evals/report*.json
+
+# Vue
+data-agent-fronted/node_modules/
+data-agent-fronted/dist/
+data-agent-fronted/.env
+data-agent-fronted/.env.*
+
+# IDE
+.vscode/
+.idea/
+
+# System
+.DS_Store
+Thumbs.db

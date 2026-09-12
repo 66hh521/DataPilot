@@ -1,0 +1,36 @@
+cases:
+  - id: province_gmv_2025_01
+    question: 查询2025年1月各省份销售额，并按销售额从高到低排序
+    expected_tables: [fact_order, dim_date, dim_region]
+    expected_columns: [order_amount, year, month, province]
+    expected_non_empty: true
+
+  - id: region_gmv_2025
+    question: 统计2025年各大区GMV
+    expected_tables: [fact_order, dim_date, dim_region]
+    expected_columns: [order_amount, year, region_name]
+    expected_non_empty: true
+
+  - id: category_sales_quantity
+    question: 统计2025年第一季度各商品品类的销量
+    expected_tables: [fact_order, dim_date, dim_product]
+    expected_columns: [order_quantity, year, quarter, category]
+    expected_non_empty: true
+
+  - id: member_level_aov
+    question: 对比不同会员等级的平均客单价
+    expected_tables: [fact_order, dim_customer]
+    expected_columns: [order_amount, order_id, member_level]
+    expected_non_empty: true
+
+  - id: brand_order_count
+    question: 统计各品牌的订单数量
+    expected_tables: [fact_order, dim_product]
+    expected_columns: [order_id, brand]
+    expected_non_empty: true
+
+  - id: empty_future_period
+    question: 查询2026年1月各省份销售额
+    expected_tables: [fact_order, dim_date, dim_region]
+    expected_columns: [order_amount, year, month, province]
+    expected_non_empty: false
